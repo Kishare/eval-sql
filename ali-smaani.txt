@@ -1,0 +1,39 @@
+# 1 SELECT titre AS "Titres films" FROM film WHERE genre_id IN (1, 2, 3) AND titre LIKE '%e'
+
+# 2 SELECT titre AS titre_film, duree_min AS duree_film, resum AS resume_film FROM film
+
+# 3 SELECT LOWER(titre) as "titres_min" FROM film WHERE id > 42 AND id < 84
+
+# 4 SELECT UPPER(titre) AS titre, date_fin_affiche FROM film ORDER BY date_fin_affiche DESC
+
+# 5 SELECT SHA1(titre) AS Titres_SHA1, MD5(titre) AS Titres_MD5 FROM film
+
+# 6 SELECT COUNT(*) AS nombre_films FROM film WHERE titre LIKE 'B%'
+
+# 7 SELECT titre FROM film WHERE genre_id = 2 AND titre LIKE '%the%'
+
+# 8 SELECT titre, date_debut_affiche AS date_debut, distrib_id, nom AS nom_distrib FROM film, distrib WHERE titre LIKE '%day%' AND distrib_id = distrib.id AND distrib_id IS NOT NULL ORDER BY date_debut DESC
+
+# 9 SELECT COUNT(film.titre) AS 'nombre films', genre.nom AS 'nom genre', SUM(film.duree_min) AS 'minutes totales' FROM `film`, `genre` WHERE film.genre_id = genre.id AND genre_id BETWEEN 3 AND 5 GROUP BY genre.nom
+
+# 10 SELECT MIN(id) AS "min id film" FROM film WHERE genre_id = 6
+
+# 11 SELECT titre, date_debut_affiche, date_fin_affiche, DATEDIFF(date_fin_affiche, date_debut_affiche)*24 AS temps_affiche FROM film WHERE DATEDIFF(date_fin_affiche, date_debut_affiche) IS NOT NULL
+
+# 12 SELECT COUNT(DISTINCT(abonnement.id)) AS "nombre_abonnement", CEIL(AVG(abonnement.prix)) AS "moyenne_abonnement", COUNT(membre.id) AS "nombre_abonnees" FROM abonnement JOIN membre ON abonnement.id = membre.abo_id WHERE membre.abo_id > 0
+
+# 13 SELECT reduction.nom, reduction.pourcentage_reduc FROM reduction WHERE reduction.pourcentage_reduc > 0 AND reduction.pourcentage_reduc != 25 ORDER BY reduction.pourcentage_reduc DESC
+
+# 14 SELECT nom_salle FROM salle WHERE nbr_siege >= 100 AND nbr_siege <= 300 AND etage_salle = 2
+
+# 15 SELECT nom AS nom_genre, MAX(duree_min) as duree_film FROM genre, film WHERE genre.id = film.genre_id GROUP BY nom
+
+# 16 SELECT SUM(nbr_siege) AS "nbr place" FROM salle WHERE etage_salle = 1
+
+# 17 SELECT membre_id AS id_membre, date AS histo_date FROM historique_membre WHERE film_id IN (453,642) ORDER BY membre_id ASC
+
+# 18 SELECT id, titre, resum FROM film WHERE id = 42
+
+# 19 SELECT UPPER(distrib.nom) AS nom_distrib, COUNT(film.distrib_id) AS nombre_films, SUM(duree_min) AS duree_min FROM distrib, film WHERE distrib.id = film.distrib_id GROUP BY nom_distrib ORDER BY nombre_films DESC, duree_min DESC
+
+# 20 SELECT CONCAT(UPPER(LEFT(fiche_personne.nom, 1)), LOWER(SUBSTRING(fiche_personne.nom, 2, LENGTH(fiche_personne.nom)))) AS nom, CONCAT(UPPER(LEFT(fiche_personne.prenom, 1)), LOWER(SUBSTRING(fiche_personne.prenom, 2, LENGTH(fiche_personne.nom)))) AS prenom, COUNT(historique_membre.film_id) AS nombre_film, membre.date_dernier_film, film.titre AS nom_dernier_film FROM fiche_personne, historique_membre, membre, film WHERE fiche_personne.id = membre.fiche_perso_id AND historique_membre.membre_id = membre.id AND dernier_film_id = film.id GROUP BY membre_id ORDER BY nombre_film DESC
